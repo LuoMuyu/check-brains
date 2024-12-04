@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         检测不长脑子的
 // @namespace    http://tampermonkey.net/
-// @version      1.3
+// @version      1.0
 // @description  检测cvat平台数据标注黑奴未按规定使用对应工具的
 // @author       洛沐语
 // @match        *://*/tasks/*/jobs/*
