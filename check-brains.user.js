@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         检测不长脑子的
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.2
 // @description  检测cvat平台数据标注黑奴未按规定使用对应工具的
 // @author       洛沐语
 // @match        *://*/tasks/*/jobs/*
@@ -14,8 +14,17 @@
     'use strict';
 
     let alertTriggered = false;
+    let occludedTriggered = true;
     function checkForErrors(observer) {
         if (alertTriggered) return;
+        if (document.getElementsByClassName("ant-input-number-input")[0].value !== undefined) {
+            console.log("当前图片：" + document.getElementsByClassName("ant-input-number-input")[0].value)
+        }
+        if ((occludedTriggered) && (document.getElementsByClassName("cvat-object-item-button-occluded-enabled").length != 0)) {
+            if (confirm("框存在未闭合")) {
+                occludedTriggered = false;
+            }
+        }
         const elements = document.getElementsByClassName("cvat-objects-sidebar-state-item-object-type-text");
         const targetValues = ["RECTANGLE SHAPE", "POLYGON TRACK", "POLYLINE SHAPE", "POLYLINE TRACK", "POINTS SHAPE", "POINTS TRACK", "ELLIPSE SHAPE", "ELLIPSE TRACK", "CUBOID SHAPE", "CUBOID TRACK", "MASK SHAPE", "MASK TRACK", "TAG"];
         for (let i = 0; i < elements.length; i++) {
